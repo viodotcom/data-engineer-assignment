@@ -9,8 +9,13 @@ wait-for-localstack:
 	done
 	@echo "Localstack available!"
 
+# Zip Lambda functions
+zip-lambdas:
+	@echo "Zipping Lambda functions code"
+	@./zip-lambdas.sh
+
 # Deploy Terraform resources
-run-terraform:
+run-terraform: zip-lambdas
 	@echo "Deploying Terraform resources"
 	@cd deployment && terraform init && terraform apply -auto-approve
 
@@ -18,10 +23,16 @@ run-terraform:
 check-resources:
 	@echo "Checking AWS buckets"
 	@aws --endpoint-url=http://localstack:4566 s3api list-buckets
+	@aws --endpoint-url=http://localstack:4566 lambda list-functions
 
-keep-docker-running:
-	@echo "Keeping docker up and running"
-	@tail -f /dev/null
+# Trigger test lambda every minute
+test-lambda:
+	@echo "Starting loop to triggering test Lambda every minute"
+	@while true; do \
+		echo "Triggering test Lambda"; \
+		aws --endpoint-url=http://localstack:4566 lambda invoke --function-name test response.json; \
+		sleep 60; \
+	done
 
 # TODO: Add all the necessary steps to complete the assignment
-run: wait-for-localstack run-terraform check-resources keep-docker-running
+run: wait-for-localstack run-terraform check-resources test-lambda
