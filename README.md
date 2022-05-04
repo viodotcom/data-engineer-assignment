@@ -49,11 +49,11 @@ The sample [test](lambda/test/test.py) Lambda function creates a dummy `YYYYMMDD
 
 Follow this steps to get your environment ready for the assignment
 
-1) Fork this repository.
+1) Fork this repository and clone it in your computer.
 
 2) Install [Docker](https://docs.docker.com/get-docker/).
 
-3) Go to the root folder of this project and execute the following command to create the Docker images and run the containers:
+3) Go to the root folder of the project and execute the following command to create the Docker images and run the containers:
 
 ```bash
 $ cd data-engineer-assignment
@@ -104,12 +104,13 @@ The assignment is divided in 2 parts, the first one focused on data ingestion an
 
 >**_NOTE_**: The environment that we provide for the assignment and the examples in it use Terraform to create the infrastructure and Python for the Lambda functions.
 However, you are free to choose your own tools for this assignment.
-For example. If you feel more comfortable using the AWS CLI to the create the infrastructure or you prefer to use Go in your Lambda functions, that's perfectly fine.
-Just remember that, in that case, you may need to install any other requirements in the `client` docker container and adapt the provided scripts.
+For example, if you feel more comfortable using the AWS CLI to the create the infrastructure or you prefer to use Go in your Lambda functions, that's perfectly fine.
+Just remember that, in that case, you may need to install other tools in the `client` docker container and adapt the provided scripts.
 
 ### Part 1 - Ingesting weather forecasts into S3
 
-In this first part of the assignment the objective is to connect to ingest data from the Open-Meteo Weather Forecast API. You should use a Lamnda function to query the API and store the results in an S3 bucket.
+In this first part of the assignment the objective is to ingest data from the Open-Meteo Weather Forecast API.
+You should use a Lamnda function to query the API and store the results in an S3 bucket.
 
 ```mermaid
 flowchart LR
@@ -151,9 +152,11 @@ The response contains the hourly predictions of the selected variables in an arr
 }
 ```
 
-You'll need to download the forecats of **temprature at 2m height** and **precipitation** for **3 cities** of your choice.
+You'll need to download the hourly forecat of **temprature at 2m height** and **precipitation** for **3 cities** of your choice.
 
 >**_HINT:_** You can use a service like [this](https://www.latlong.net/) to obtain the latitude and logitude of any city.
+
+The expected file structure in S3 is the following:
 
 ```
 <my_bucket>
@@ -180,7 +183,7 @@ You'll need to download the forecats of **temprature at 2m height** and **precip
     ...
 ```
 
-Where `forecast_<YYYYMMDDhhmmss>.json` is the exact response from the Opem-Meteo API and `<YYYYMMDDhhmmss>` is the timestamp when the prediction was retrieved from the API.
+Where <city_name> is the lowercase name of each city, `forecast_<YYYYMMDDhhmmss>.json` is the exact response from the Opem-Meteo API and `<YYYYMMDDhhmmss>` is the timestamp when the prediction was retrieved from the API.
 
 >**_NOTE_**: You should keep all files downloaded from the API.
 
@@ -197,7 +200,8 @@ flowchart LR
   l2(Cleanup Lambda) --> d[S3]
 ```
 
-You'll need to preprocess the raw files and create a separate object per hour prediction with the following structure:
+You'll need to process the raw files and create a separate object per hour of prediction
+The expected file structure in S3 is the following:
 
 ```
 <my_bucket>
@@ -223,7 +227,7 @@ You'll need to preprocess the raw files and create a separate object per hour pr
             ...
 ```
 
-Where `date=<YYYYMMDDhh>` is a prefix for each hour and `forecast.json` is a JSON file with the following format:
+Where `date=<YYYYMMDDhh>` is a prefix for each hour prediction and `forecast.json` is a JSON file with the following format:
 
 ```json
 {
@@ -242,14 +246,14 @@ Where `date=<YYYYMMDDhh>` is a prefix for each hour and `forecast.json` is a JSO
 
 ## Evaluation
 
-We expect the solution to be self-contained, as the sample infrastructure provided
+We expect the solution to be self-contained, as the sample infrastructure provided.
 Therefore, we will test your solution by running:
 
 ```bash
 $ docker-compose up
 ```
 
-> **_NOTE_**: We suggest using the Makefile to run all the necessary steps in the `client` container, like we do in the sample. However, you are free to do it any way you want, as long as everything that needs to run happens automatically when the containers are launched.
+> **_NOTE_**: We suggest using the Makefile to run all the necessary steps in the `client` container, like we do in the sample. However, you are free to do it any way you want, as long as everything that needs to run does so automatically when the containers are launched.
 
 We will then use the AWS CLI in the `client` container to inspect S3 and its contents:
 
