@@ -183,7 +183,7 @@ The expected file structure in S3 is the following:
     ...
 ```
 
-Where <city_name> is the lowercase name of each city, `forecast_<YYYYMMDDhhmmss>.json` is the exact response from the Opem-Meteo API and `<YYYYMMDDhhmmss>` is the timestamp when the prediction was retrieved from the API.
+Where <city_name> is the lowercase name of each city, `forecast_<YYYYMMDDhhmmss>.json` is the exact response from the Open-Meteo API and `<YYYYMMDDhhmmss>` is the timestamp when the prediction was retrieved from the API.
 
 >**_NOTE_**: You should keep all files downloaded from the API.
 
