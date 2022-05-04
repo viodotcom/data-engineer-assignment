@@ -5,7 +5,7 @@
 This assignment is part of the recruitment process of Data Engineers here at FindHotel.
 The purpose is to asses the technical skills of our candidatess in a generic scenario, similar to the one they would experience at FindHotel.
 
-> **_NOTE_**: Please, read carefully all the instructions before starting to work on your solution and feel free to contact us if you have any doubt.
+> **_NOTE_**: Please, read carefully all the instructions before starting to work on your solution and feel free to contact us if you have any questions.
 
 ## Repository content
 
@@ -110,7 +110,7 @@ Just remember that, in that case, you may need to install other tools in the `cl
 ### Part 1 - Ingesting weather forecasts into S3
 
 In this first part of the assignment the objective is to ingest data from the Open-Meteo Weather Forecast API.
-You should use a Lamnda function to query the API and store the results in an S3 bucket.
+You should use a Lambda function to query the API and store the results in an S3 bucket.
 
 ```mermaid
 flowchart LR
@@ -124,7 +124,7 @@ An example request to get the temperature forecast data for Amsterdam in an hour
 $ curl "https://api.open-meteo.com/v1/forecast?latitude=52.370216&longitude=4.895168&hourly=temperature_2m"
 ````
 
-The response contains the hourly predictions of the selected variables in an array, as shown below (truncated for readibility):
+The response contains the hourly predictions of the selected variables in an array, as shown below (truncated for readability):
 
 ```json
 {
@@ -152,7 +152,7 @@ The response contains the hourly predictions of the selected variables in an arr
 }
 ```
 
-You'll need to download the hourly forecat of **temprature at 2m height** and **precipitation** for **3 cities** of your choice.
+You'll need to download the hourly forecast of **temperature at 2m height** and **precipitation** for **3 cities** of your choice.
 
 >**_HINT:_** You can use a service like [this](https://www.latlong.net/) to obtain the latitude and logitude of any city.
 
@@ -187,7 +187,7 @@ Where <city_name> is the lowercase name of each city, `forecast_<YYYYMMDDhhmmss>
 
 >**_NOTE_**: You should keep all files downloaded from the API.
 
-### Part 2 - Processing the wheather forecasts
+### Part 2 - Processing the weather forecasts
 
 In this part of the assignment you will use the downloaded raw forecasts to create a set of clean objects in S3.
 For that, you will create a second Lambda function that will read the raw forecast files and produce the clean ones.
