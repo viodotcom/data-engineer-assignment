@@ -5,8 +5,9 @@ FROM ubuntu:20.04
 RUN apt-get update
 RUN apt-get install python3-pip wget zip unzip curl jq -y
 
-# Instal AWS CLI
+# Instal AWS CLI and Virtualenv
 RUN pip3 install awscli
+RUN pip3 install virtualenv
 
 # Install Terraform
 RUN wget https://releases.hashicorp.com/terraform/1.1.9/terraform_1.1.9_linux_amd64.zip
