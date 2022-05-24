@@ -2,7 +2,7 @@
 FROM ubuntu:20.04
 
 # Install Ubuntu packages
-RUN apt-get update
+RUN apt-get update --fix-missing
 RUN apt-get install python3-pip wget zip unzip curl jq -y
 
 # Instal AWS CLI and Virtualenv
