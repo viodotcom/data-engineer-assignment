@@ -1,9 +1,9 @@
-# FindHotel's Data Engineer assignment
+# Vio.com Data Engineer assignment
 
 ## Introduction
 
-This assignment is part of the recruitment process of Data Engineers here at FindHotel.
-The purpose is to asses the technical skills of our candidatess in a generic scenario, similar to the one they would experience at FindHotel.
+This assignment is part of the recruitment process of Data Engineers here at Vio.com.
+The purpose is to assess the technical skills of our candidates in a generic scenario, similar to the one they would experience at Vio.com.
 
 > **_NOTE_**: Please, read carefully all the instructions before starting to work on your solution and feel free to contact us if you have any questions.
 
